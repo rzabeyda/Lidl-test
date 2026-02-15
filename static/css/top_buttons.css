@@ -18,8 +18,8 @@
 
 /* Стили для иконки внутри кнопки */
 .top-button .icon img {
-    width: 30px;               /* размер иконки */
-    height: 30px;
+    width: 25px;               /* размер иконки */
+    height: 25px;
     transition: transform 0.2s; /* плавное увеличение иконки при нажатии */
 }
 

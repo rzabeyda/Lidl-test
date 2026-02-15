@@ -1,7 +1,7 @@
 // Ждём полной загрузки DOM, чтобы контейнер для кнопок точно существовал
 document.addEventListener("DOMContentLoaded", () => {
 
-    // Получаем контейнер, в который будем вставлять все верхние кнопки
+    // Контейнер для всех верхних кнопок
     const topButtonsContainer = document.getElementById("top-buttons-container");
 
     // Объект для хранения количества каждого товара в корзине
@@ -12,12 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Создаём кнопку для каждого товара
         const btn = document.createElement("button");
-        btn.className = "top-button"; // применяем базовые стили из CSS
+        btn.className = "top-button"; // базовые стили из CSS
 
-        // Внутри кнопки создаём:
-        // 1) div с иконкой (PNG или emoji)
-        // 2) div с названием продукта
-        // 3) div для счётчика, который изначально скрыт
+        // Содержимое кнопки: иконка, название, счётчик (изначально скрыт)
         btn.innerHTML = `
             <div class="icon">
                 ${iconsMap[product.name] ? `<img src="${iconsMap[product.name]}" alt="${product.name}">` : product.icon}
@@ -26,34 +23,60 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="counter" style="display:none"></div>
         `;
 
-        // Получаем ссылку на счётчик и иконку для дальнейшего обновления
+        // Ссылки на элементы внутри кнопки
         const counter = btn.querySelector(".counter");
-        const icon = btn.querySelector(".icon img") || btn.querySelector(".icon"); // если PNG есть, используем img, иначе emoji
+        const icon = btn.querySelector(".icon img") || btn.querySelector(".icon"); // img если есть, иначе emoji
 
-        // Добавляем обработчик клика по кнопке
+        // Обработчик клика по кнопке
         btn.addEventListener("click", () => {
 
-            // Обновляем количество товара в cart
-            // Если товар уже есть, увеличиваем на 1, иначе создаём и ставим 1
+            // ======== ОБНОВЛЕНИЕ CART =========
             cart[product.name] = cart[product.name] ? cart[product.name] + 1 : 1;
 
-            // Анимация “подпрыгивания” кнопки и увеличение иконки
-            btn.classList.add("active");       // добавляем класс active для CSS анимации vibro
-            icon.style.transform = "scale(1.3)"; // увеличиваем иконку при нажатии
+            // ======== АНИМАЦИЯ КНОПКИ =========
+            // подпрыгивание и увеличение иконки
+            btn.classList.add("active");
+            icon.style.transform = "scale(1.3)";
             setTimeout(() => {
-                btn.classList.remove("active"); // убираем активный класс после 0.25 сек
-                icon.style.transform = "scale(1)"; // возвращаем иконку к исходному размеру
+                btn.classList.remove("active");
+                icon.style.transform = "scale(1)";
             }, 250);
 
-            // Обновляем счётчик на кнопке
-            counter.textContent = cart[product.name]; // ставим актуальное количество
-            counter.style.display = "flex";           // делаем счётчик видимым, если он скрыт
+            // ======== ОБНОВЛЕНИЕ СЧЁТЧИКА =========
+            counter.textContent = cart[product.name];
+            counter.style.display = "flex";
 
-            // Делаем кнопку визуально “выбранной”
-            btn.classList.add("selected"); // активируем эффект пульсации
+            // ======== ВИЗУАЛЬНОЕ ВЫДЕЛЕНИЕ =========
+            btn.classList.add("selected");
+
+            // ======== ПОКАЗ ЦЕНЫ НА 1 СЕКУНДУ =========
+            const priceTag = document.createElement("div");
+            priceTag.textContent = `€${product.price.toFixed(2)}`;
+            priceTag.style.position = "absolute";
+            priceTag.style.top = "-20px";
+            priceTag.style.left = "50%";
+            priceTag.style.transform = "translateX(-50%)";
+            priceTag.style.color = "white";
+            priceTag.style.fontSize = "12px";
+            priceTag.style.fontWeight = "bold";
+            priceTag.style.pointerEvents = "none";
+            priceTag.style.transition = "all 0.5s ease-out";
+
+            btn.appendChild(priceTag);
+
+            // плавное исчезновение через ~1 сек
+            setTimeout(() => {
+                priceTag.style.opacity = "0";
+                priceTag.style.transform = "translateX(-50%) translateY(-10px)";
+            }, 800);
+
+            // удаляем элемент из DOM
+            setTimeout(() => {
+                btn.removeChild(priceTag);
+            }, 1200);
         });
 
-        // Вставляем кнопку в контейнер на странице
+        // ======== ДОБАВЛЕНИЕ КНОПКИ В DOM =========
         topButtonsContainer.appendChild(btn);
     });
 });
