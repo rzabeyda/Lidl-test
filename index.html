@@ -9,61 +9,9 @@
 <link rel="stylesheet" href="static/css/top_buttons.css">
     <link rel="stylesheet" href="static/css/cart.css">
     <link rel="stylesheet" href="static/css/top_image.css">
+    <link rel="stylesheet" href="static/css/row_buttons.css">
+    <link rel="stylesheet" href="static/css/base.css">
 
-
-
-<style>
-html, body {
-    margin: 0;
-    padding: 0;
-    background: black;
-    color: white;
-    font-family: sans-serif;
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-}
-
-#app {
-    width: 100%;
-    max-width: 480px;   /* строго под смартфон */
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Картинка сверху */
-#top-image {
-    width: 95%;
-    max-width: 400px;
-    margin: 0 auto;
-    border-radius: 48px;
-    overflow: hidden;
-    padding-top: 10px;
-}
-#top-image img {
-    display: block;
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    object-position: top;
-}
-
-/* Контейнер верхних кнопок */
-#top-buttons-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 5px;
-}
-
-/* Мобильная адаптация */
-@media (max-width: 480px) {
-    #top-image {
-        width: 95%;
-    }
-}
-</style>
 </head>
 
 <body>
@@ -77,12 +25,17 @@ html, body {
   <!-- Верхние 55 кнопок продуктов -->
   <div id="top-buttons-container"></div>
 
-</div>
+  <!-- ======= Контейнер для трёх фиксированных кнопок: корзина, евро и заметки ======= -->
+  <div id="row-buttons-container"></div>
+
+</div> <!-- конец #app -->
+
 
 <!-- JS -->
 <script src="static/js/products.js"></script>
 <script src="static/js/cart.js"></script>
 <script src="static/js/top_buttons.js"></script>
+<script src="static/js/row_buttons.js"></script>
 
 
 </body>

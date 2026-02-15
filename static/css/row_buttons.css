@@ -1,0 +1,31 @@
+/* Контейнер трёх кнопок */
+#row-buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 8px;           /* расстояние между кнопками */
+    margin-top: 10px;   /* отступ от верхних кнопок */
+}
+
+/* Кнопки */
+.row-button {
+    width: 60px;        /* ширина кнопки */
+    height: 30px;       /* высота кнопки — в два раза меньше верхних */
+    border: none;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Цвета кнопок */
+.row-button.red { background: #c0392b; }
+.row-button.blue { background: #2980b9; }
+.row-button.yellow { background: #f1c40f; }
+
+/* Иконка внутри кнопки */
+.row-button .icon img {
+    width: 20px;
+    height: 20px;
+}
