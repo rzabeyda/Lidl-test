@@ -1,103 +1,77 @@
+/* Общие стили для верхних кнопок */
 .top-button {
-    width: 60px;
-    height: 60px;
-    margin: 4px;
-    background: #222;
-    border: none;
-    border-radius: 12px;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    width: 60px;               /* ширина кнопки */
+    height: 60px;              /* высота кнопки */
+    margin: 5px;               /* отступы между кнопками */
+    background: #222;          /* цвет фона кнопки */
+    border: none;              /* убираем стандартную рамку */
+    border-radius: 12px;       /* закругление углов */
+    color: white;              /* цвет текста */
+    display: flex;             /* используем flex для центровки содержимого */
+    flex-direction: column;    /* располагаем иконку и название вертикально */
+    align-items: center;       /* горизонтальная центровка содержимого */
+    justify-content: center;   /* вертикальная центровка содержимого */
+    position: relative;        /* для абсолютного позиционирования счётчика */
+    cursor: pointer;           /* курсор указывает на кликабельность */
+    transition: transform 0.1s, box-shadow 0.1s; /* плавный переход при трансформации и тенях */
 }
 
-/* Подсветка выбранной кнопки (qty >= 1) */
-.top-button.selected {
-    background: #3333aa; /* чуть синий оттенок */
-    box-shadow: 0 0 10px #5555ff;
-}
-
-/* Наведение на кнопку */
-.top-button:hover {
-    background: #444; /* светлее фон */
-    box-shadow: 0 0 15px #8888ff;
-}
-
-/* Иконка внутри кнопки */
+/* Стили для иконки внутри кнопки */
 .top-button .icon img {
-    width: 30px;
+    width: 30px;               /* размер иконки */
     height: 30px;
-    transition: transform 0.2s;
+    transition: transform 0.2s; /* плавное увеличение иконки при нажатии */
 }
 
-/* Увеличиваем иконку при наведении на кнопку */
-.top-button:hover .icon img {
-    transform: scale(1.3);
-}
-
-/* Название */
+/* Текст названия продукта внутри кнопки */
 .top-button .name {
-    font-size: 12px;
-    margin-top: 2px;
+    font-size: 10px;       /* размер текста внутри кнопки */
+    text-align: center;    /* центрируем текст по горизонтали */
+    line-height: 1.1;      /* вертикальное выравнивание */
+    white-space: nowrap;   /* текст в одну строку */
+    overflow: hidden;      /* обрезаем если не помещается */
+    text-overflow: ellipsis; /* добавляем "..." если текст длинный */
 }
 
-/* Счётчик */
-.top-button .counter {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background: blue;
-    width: 18px;
-    height: 18px;
-    font-size: 12px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
+/* Стили для выбранной кнопки (когда количество > 0) */
+.top-button.selected {
+    box-shadow: 0 0 12px #ff6f91; /* светящийся контур вокруг кнопки */
+    animation: pulse 1.5s infinite alternate; /* лёгкая пульсация иконки */
 }
 
-/* Анимация прыжка */
-@keyframes jumpAnim {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0); }
+/* Ключевые кадры для пульсации выбранной кнопки */
+@keyframes pulse {
+    0% { transform: scale(1); }       /* исходный размер */
+    50% { transform: scale(1.05); }   /* чуть увеличиваем */
+    100% { transform: scale(1); }     /* возвращаемся к исходному размеру */
 }
 
-.top-button {
-    width: 60px;
-    height: 60px;
-    margin: 4px;
-    background: #222;
-    border: none;
-    border-radius: 12px;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    cursor: pointer;
-    transition: transform 0.1s, box-shadow 0.1s;
-}
-
-.top-button .icon img {
-    width: 30px;
-    height: 30px;
-    transition: transform 0.2s;
-}
-
-/* Анимация при клике */
-@keyframes buttonClickAnim {
-    0% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-6px) scale(1.2); }
-    100% { transform: translateY(0) scale(1); }
-}
-
+/* Класс для анимации “подпрыгивания” при нажатии */
 .top-button.active {
-    animation: buttonClickAnim 0.25s;
+    animation: vibro 0.25s;           /* запускаем короткую анимацию */
+}
+
+/* Ключевые кадры анимации “vibro” */
+@keyframes vibro {
+    0% { transform: translateY(0) scale(1); }       /* исходная позиция */
+    25% { transform: translateY(-5px) scale(1.15); } /* прыжок вверх + увеличение */
+    50% { transform: translateY(0) scale(1.1); }      /* возвращаемся с небольшим увеличением */
+    75% { transform: translateY(-3px) scale(1.1); }   /* маленький подпрыг */
+    100% { transform: translateY(0) scale(1); }       /* возвращаемся к исходному состоянию */
+}
+
+/* Счётчик количества на кнопке */
+.top-button .counter {
+    position: absolute;            /* позиционируем относительно кнопки */
+    top: -3px;                     /* смещаем немного вверх */
+    right: -3px;                   /* смещаем вправо */
+    background: green;              /* фон счётчика */
+    width: 16px;                   /* размер кружка */
+    height: 16px;
+    font-size: 12px;               /* размер текста */
+    border-radius: 50%;            /* делаем кружок */
+    display: flex;                 /* flex для центровки текста */
+    align-items: center;           /* вертикальная центровка текста */
+    justify-content: center;       /* горизонтальная центровка текста */
+    color: white;                  /* цвет текста */
 }
