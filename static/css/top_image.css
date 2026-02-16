@@ -1,8 +1,13 @@
+/* static/css/top_image.css */
+
+/* Контейнер верхней картинки */
 #top-image {
-    position: relative;  /* чтобы псевдоэлемент позиционировался относительно контейнера */
-    overflow: hidden;    /* чтобы блик не выходил за пределы картинки */
+    position: relative;  /* для псевдоэлемента блика и наложенных ценников */
+    overflow: hidden;    /* чтобы ничего не вылезало за пределы */
+    border-radius: 48px;
 }
 
+/* Сама картинка */
 #top-image img {
     display: block;
     width: 100%;
@@ -28,6 +33,7 @@
     transform: skewX(-20deg);  /* наклон блика */
     pointer-events: none;       /* не мешает кликам */
     animation: shine 5.5s infinite; /* анимация движения */
+    z-index: 1; /* чтобы ценники и кнопки были поверх */
 }
 
 /* Анимация движения блика слева направо */

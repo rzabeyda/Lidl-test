@@ -1,10 +1,12 @@
+// static/js/top_buttons.js
+
 document.addEventListener("DOMContentLoaded", () => {
     const topButtonsContainer = document.getElementById("top-buttons-container");
 
     products.forEach(product => {
         const btn = document.createElement("button");
         btn.className = "top-button";
-        btn.dataset.id = product.name; // Важно для cart.js
+        btn.dataset.id = product.name; // Для cart.js
 
         btn.innerHTML = `
             <div class="icon">
@@ -34,11 +36,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             btn.classList.add("selected");
 
-            // ===== Показ цены =====
+            // ===== Показ цены сверху вниз =====
             const priceTag = document.createElement("div");
             priceTag.textContent = `€${product.price.toFixed(2)}`;
             priceTag.style.position = "absolute";
-            priceTag.style.top = "-20px";
+            priceTag.style.top = "-30px"; // старт сверху
             priceTag.style.left = "50%";
             priceTag.style.transform = "translateX(-50%)";
             priceTag.style.color = "white";
@@ -46,22 +48,22 @@ document.addEventListener("DOMContentLoaded", () => {
             priceTag.style.fontWeight = "bold";
             priceTag.style.pointerEvents = "none";
             priceTag.style.transition = "all 0.5s ease-out";
+            priceTag.style.zIndex = "10";  // поверх картинки и блика
 
             btn.appendChild(priceTag);
 
+            // Анимация движения ценника вниз
             setTimeout(() => {
+                priceTag.style.top = "0px";
                 priceTag.style.opacity = "0";
-                priceTag.style.transform = "translateX(-50%) translateY(-10px)";
-            }, 800);
+            }, 50);
 
             setTimeout(() => {
                 btn.removeChild(priceTag);
-            }, 1200);
+            }, 550);
 
-            // ===== ВЫБРАСЫВАЕМ СОБЫТИЕ ДЛЯ cart.js =====
-            // ===== ДОБАВЛЯЕМ В КОРЗИНУ =====
+            // ===== Добавляем в корзину =====
             addToCart(product);
-
         });
 
         topButtonsContainer.appendChild(btn);

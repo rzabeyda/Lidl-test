@@ -7,7 +7,8 @@
     max-height: 210px;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    margin-top: 10px;
+    margin-top: 0px;
+    gap: 0px;
 }
 
 /* Нижние кнопки */
