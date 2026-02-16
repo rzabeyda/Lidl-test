@@ -1,0 +1,102 @@
+/* yellow_button.css */
+
+/* Затемнение фона */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 40px;
+    z-index: 2000;
+}
+
+/* Контейнер блокнота */
+.modal-note {
+    width: 92%;
+    max-width: 500px;
+    background: #1e1e1e;
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    animation: modalAppear 0.25s ease;
+}
+
+/* Анимация появления */
+@keyframes modalAppear {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Заголовок */
+.modal-note h2 {
+    color: white;
+    margin: 0 0 12px 0;
+    font-size: 18px;
+    text-align: center;
+}
+
+/* Текстовое поле */
+.modal-note textarea {
+    width: 100%;
+    height: 220px;
+    border-radius: 12px;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    resize: none;
+    outline: none;
+    background: #2a2a2a;
+    color: white;
+    box-sizing: border-box;
+}
+
+/* Контейнер кнопок */
+.note-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 14px;
+    gap: 8px;
+}
+
+/* Общий стиль кнопок */
+.note-btn {
+    flex: 1;
+    height: 45px;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
+/* Цвета кнопок */
+.note-save { background: #27ae60; }
+.note-clear { background: #f1c40f; color: black; }
+.note-close { background: #c0392b; }
+
+/* Свечение жёлтой кнопки если есть запись */
+.note-has-data {
+    animation: noteGlow 2s infinite ease-in-out;
+    box-shadow: 0 0 8px #f1c40f, 0 0 16px rgba(241,196,15,0.6);
+}
+
+/* Пульсация */
+@keyframes noteGlow {
+    0% {
+        box-shadow: 0 0 4px #f1c40f, 0 0 8px rgba(241,196,15,0.4);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 10px #f1c40f, 0 0 20px rgba(241,196,15,0.8);
+        transform: scale(1.05);
+    }
+    100% {
+        box-shadow: 0 0 4px #f1c40f, 0 0 8px rgba(241,196,15,0.4);
+        transform: scale(1);
+    }
+}
