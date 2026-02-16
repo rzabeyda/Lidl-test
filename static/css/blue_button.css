@@ -2,7 +2,7 @@
 
 /* Общий класс для свечения + вибрации */
 .mass-glow {
-    animation: glowPulse 1.5s ease-in-out, shakePulse 1.5s ease-in-out;
+    animation: glowPulse 1s ease-in-out, shakePulse 1s ease-in-out;
     box-shadow: 0 0 6px #00f, 0 0 12px #0ff, 0 0 18px #0ff;
     transition: box-shadow 0.3s, transform 0.2s;
 }
@@ -16,7 +16,7 @@
     100% { box-shadow: 0 0 4px #00f, 0 0 8px #0ff, 0 0 12px #0ff; }
 }
 
-/* Вибрация / подпрыгивание всех кнопок */
+/* Вибрация / подпрыгивание */
 @keyframes shakePulse {
     0%   { transform: translate(0,0) rotate(0deg) scale(1); }
     10%  { transform: translate(-2px,-2px) rotate(-1deg) scale(1.02); }
@@ -31,7 +31,7 @@
     100% { transform: translate(0,0) rotate(0deg) scale(1); }
 }
 
-/* Плавный переход для всех кнопок */
+/* Плавный переход */
 .top-button,
 .bottom-button,
 .row-button {

@@ -1,42 +1,57 @@
-# lidl.py — бот для Telegram, только приветствие и кнопка WebApp
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update, InputFile, WebAppInfo
+# lidl.py — Telegram бот с WebApp кнопкой для @golidlbot
+
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update, WebAppInfo, InputFile
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 import os
 
-# Токен бота
-TOKEN = os.getenv("BOT_TOKEN")
-if not TOKEN:
-    raise ValueError("BOT_TOKEN не найден в переменных окружения")
+# 🔹 Токен твоего бота
+TOKEN = "8353827125:AAG2HR63c6_bvJx28kTnJE4ZIlxZy44TYfw"
 
-# Ссылка на веб-шоп
-URL = "https://github.com/rzabeyda/Lidl-test/?v=2"
+# 🔹 WebApp URL — именно наша страничка
+WEBAPP_URL = "https://rzabeyda.github.io/Lidl-test/"
+
+# 🔹 Путь к приветственной картинке
+WELCOME_IMG_PATH = "static/icons/duck.jpg"
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Обработка команды /start: приветствие + картинка + кнопка WebApp"""
-    user_name = update.effective_user.first_name
-    text = f"Привет, {user_name} 🤗"
+    """Обработка команды /start"""
 
-    keyboard = [[
-        InlineKeyboardButton(
-            "Зашопиться 🛍️",
-            web_app=WebAppInfo(url=URL)
-        )
-    ]]
+    user_name = update.effective_user.first_name or "друг"
+    text = f"Привет, {user_name} 🤗\nНажми на кнопку, чтобы открыть шопинг:"
+
+    keyboard = [
+        [
+            InlineKeyboardButton(
+                text="Зашопиться 🛍️",
+                web_app=WebAppInfo(url=WEBAPP_URL)
+            )
+        ]
+    ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     # Отправляем картинку + текст + кнопку
-    with open("duck1.jpg", "rb") as f:
-        await update.message.reply_photo(
-            photo=InputFile("duck1.jpg", filename="duck_fresh.jpg"),
-            caption=text,
+    try:
+        with open(WELCOME_IMG_PATH, "rb") as f:
+            await update.effective_message.reply_photo(
+                photo=InputFile(f),
+                caption=text,
+                reply_markup=reply_markup
+            )
+    except FileNotFoundError:
+        # Если картинка не найдена, просто текст
+        await update.effective_message.reply_text(
+            text=text,
             reply_markup=reply_markup
         )
 
-if __name__ == "__main__":
+def main():
     app = ApplicationBuilder().token(TOKEN).build()
+
+    # Добавляем хэндлер /start
     app.add_handler(CommandHandler("start", start))
-    print("Бот запущен! /start для приветствия")
-    try:
-        app.run_polling()
-    except KeyboardInterrupt:
-        print("Бот остановлен")
+
+    print("🚀 Бот @golidlbot запущен. Команда /start активна.")
+    app.run_polling()
+
+if __name__ == "__main__":
+    main()
