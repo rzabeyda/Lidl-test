@@ -1,44 +1,75 @@
-// cart.js — хранение корзины в localStorage
+// ===== CART STATE =====
 const CART_KEY = "lidl_cart";
 
-// загружаем cart из localStorage или создаём пустой
-let cart = JSON.parse(localStorage.getItem(CART_KEY)) || {};
+function getCart() {
+    const data = localStorage.getItem(CART_KEY);
+    return data ? JSON.parse(data) : {};
+}
 
-// сохраняем cart в localStorage
-function saveCart() {
+function saveCart(cart) {
     localStorage.setItem(CART_KEY, JSON.stringify(cart));
 }
 
-// добавляем товар
-function addToCart(name) {
-    if (cart[name]) {
-        cart[name] += 1;
-    } else {
-        cart[name] = 1;
+// ===== UPDATE BOTTOM BUTTON =====
+function updateBottomButton(product) {
+    const container = document.getElementById("cart-container");
+    let btn = container.querySelector(`[data-id="${product.name}"]`);
+
+    // получаем число с верхней кнопки
+    const topBtn = document.querySelector(`#top-buttons-container [data-id="${product.name}"]`);
+    const topCounter = parseInt(topBtn?.querySelector(".counter")?.textContent || 1);
+
+    if (!btn) {
+        // создаём нижнюю кнопку только при первом клике
+        btn = document.createElement("button");
+        btn.className = "bottom-button";
+        btn.dataset.id = product.name;
+
+        btn.innerHTML = `
+            <div class="icon">
+                ${iconsMap[product.name] ? `<img src="${iconsMap[product.name]}" alt="${product.name}">` : product.icon}
+            </div>
+            <div class="name">${product.name}</div>
+            <div class="counter"></div>
+        `;
+
+        const icon = btn.querySelector(".icon img") || btn.querySelector(".icon");
+        const counter = btn.querySelector(".counter");
+
+        // клик — уменьшение на 1
+        btn.addEventListener("click", () => {
+            let value = parseInt(counter.textContent || 1);
+
+            value -= 1;
+
+            if (value <= 0) {
+                btn.remove();
+            } else {
+                counter.textContent = value >= 2 ? value : "";
+                counter.style.display = value >= 2 ? "flex" : "none";
+            }
+
+            // анимация
+            btn.classList.add("active");
+            icon.style.transform = "scale(1.3)";
+            setTimeout(() => {
+                btn.classList.remove("active");
+                icon.style.transform = "scale(1)";
+            }, 250);
+        });
+
+        container.appendChild(btn);
     }
-    saveCart();
+
+    // обновляем кружок на нижней кнопке, синхронно с верхней
+    const counter = btn.querySelector(".counter");
+    counter.textContent = topCounter >= 2 ? topCounter : "";
+    counter.style.display = topCounter >= 2 ? "flex" : "none";
 }
 
-// убираем товар
-function removeFromCart(name) {
-    if (cart[name]) {
-        cart[name] -= 1;
-        if (cart[name] <= 0) delete cart[name];
-        saveCart();
-    }
-}
-
-// получаем общее количество товаров
-function getCartQuantity(name) {
-    return cart[name] || 0;
-}
-
-// получаем общую сумму (если понадобится)
-function getCartTotal(productsList) {
-    let total = 0;
-    for (let key in cart) {
-        const product = productsList.find(p => p.name === key);
-        if (product) total += product.price * cart[key];
-    }
-    return total.toFixed(2);
-}
+// ===== CONNECT TO TOP BUTTONS =====
+document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("topButtonClicked", (e) => {
+        updateBottomButton(e.detail);
+    });
+});

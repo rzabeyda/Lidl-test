@@ -1,22 +1,23 @@
-/* Контейнер трёх кнопок */
+/* Контейнер для трёх кнопок */
 #row-buttons-container {
     display: flex;
-    justify-content: center;
-    gap: 8px;           /* расстояние между кнопками */
-    margin-top: 10px;   /* отступ от верхних кнопок */
+    justify-content: space-between;  /* равномерно на всю ширину */
+    margin-top: 10px;               /* отступ от верхних кнопок */
+    padding: 0 8px;
 }
 
-/* Кнопки */
+/* Общие стили для row-buttons */
 .row-button {
-    width: 60px;        /* ширина кнопки */
-    height: 30px;       /* высота кнопки — в два раза меньше верхних */
+    flex: 1;                        /* чтобы занимали всю ширину поровну */
+    height: 50px;                    /* высота — меньше топ батонс */
+    margin: 0 4px;
     border: none;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: transform 0.15s, box-shadow 0.15s;
 }
 
 /* Цвета кнопок */
@@ -26,6 +27,20 @@
 
 /* Иконка внутри кнопки */
 .row-button .icon img {
-    width: 20px;
-    height: 20px;
+    width: 28px;   /* увеличено */
+    height: 28px;
+    transition: transform 0.2s;
+}
+
+/* Анимация нажатия / подпрыгивания */
+.row-button:active, .row-button.active {
+    animation: vibro 0.25s;
+}
+
+@keyframes vibro {
+    0% { transform: translateY(0) scale(1); }
+    25% { transform: translateY(-5px) scale(1.15); }
+    50% { transform: translateY(0) scale(1.1); }
+    75% { transform: translateY(-3px) scale(1.1); }
+    100% { transform: translateY(0) scale(1); }
 }

@@ -1,20 +1,11 @@
-// Ждём полной загрузки DOM, чтобы контейнер для кнопок точно существовал
 document.addEventListener("DOMContentLoaded", () => {
-
-    // Контейнер для всех верхних кнопок
     const topButtonsContainer = document.getElementById("top-buttons-container");
 
-    // Объект для хранения количества каждого товара в корзине
-    let cart = {};
-
-    // Проходим по всем товарам из products.js
     products.forEach(product => {
-
-        // Создаём кнопку для каждого товара
         const btn = document.createElement("button");
-        btn.className = "top-button"; // базовые стили из CSS
+        btn.className = "top-button";
+        btn.dataset.id = product.name; // Важно для cart.js
 
-        // Содержимое кнопки: иконка, название, счётчик (изначально скрыт)
         btn.innerHTML = `
             <div class="icon">
                 ${iconsMap[product.name] ? `<img src="${iconsMap[product.name]}" alt="${product.name}">` : product.icon}
@@ -23,18 +14,11 @@ document.addEventListener("DOMContentLoaded", () => {
             <div class="counter" style="display:none"></div>
         `;
 
-        // Ссылки на элементы внутри кнопки
         const counter = btn.querySelector(".counter");
-        const icon = btn.querySelector(".icon img") || btn.querySelector(".icon"); // img если есть, иначе emoji
+        const icon = btn.querySelector(".icon img") || btn.querySelector(".icon");
 
-        // Обработчик клика по кнопке
         btn.addEventListener("click", () => {
-
-            // ======== ОБНОВЛЕНИЕ CART =========
-            cart[product.name] = cart[product.name] ? cart[product.name] + 1 : 1;
-
-            // ======== АНИМАЦИЯ КНОПКИ =========
-            // подпрыгивание и увеличение иконки
+            // ===== Анимация верхней кнопки =====
             btn.classList.add("active");
             icon.style.transform = "scale(1.3)";
             setTimeout(() => {
@@ -42,14 +26,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 icon.style.transform = "scale(1)";
             }, 250);
 
-            // ======== ОБНОВЛЕНИЕ СЧЁТЧИКА =========
-            counter.textContent = cart[product.name];
+            // ===== Обновление счётчика =====
+            let count = parseInt(counter.textContent) || 0;
+            count++;
+            counter.textContent = count;
             counter.style.display = "flex";
 
-            // ======== ВИЗУАЛЬНОЕ ВЫДЕЛЕНИЕ =========
             btn.classList.add("selected");
 
-            // ======== ПОКАЗ ЦЕНЫ НА 1 СЕКУНДУ =========
+            // ===== Показ цены =====
             const priceTag = document.createElement("div");
             priceTag.textContent = `€${product.price.toFixed(2)}`;
             priceTag.style.position = "absolute";
@@ -64,19 +49,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
             btn.appendChild(priceTag);
 
-            // плавное исчезновение через ~1 сек
             setTimeout(() => {
                 priceTag.style.opacity = "0";
                 priceTag.style.transform = "translateX(-50%) translateY(-10px)";
             }, 800);
 
-            // удаляем элемент из DOM
             setTimeout(() => {
                 btn.removeChild(priceTag);
             }, 1200);
+
+            // ===== ВЫБРАСЫВАЕМ СОБЫТИЕ ДЛЯ cart.js =====
+            // ===== ДОБАВЛЯЕМ В КОРЗИНУ =====
+            addToCart(product);
+
         });
 
-        // ======== ДОБАВЛЕНИЕ КНОПКИ В DOM =========
         topButtonsContainer.appendChild(btn);
     });
 });

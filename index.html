@@ -1,42 +1,44 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Lidl Helper</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lidl Helper</title>
 
-<!-- CSS -->
-<link rel="stylesheet" href="static/css/top_buttons.css">
-    <link rel="stylesheet" href="static/css/cart.css">
-    <link rel="stylesheet" href="static/css/top_image.css">
-    <link rel="stylesheet" href="static/css/row_buttons.css">
+    <!-- CSS -->
     <link rel="stylesheet" href="static/css/base.css">
+    <link rel="stylesheet" href="static/css/top_image.css">
+    <link rel="stylesheet" href="static/css/top_buttons.css">
+    <link rel="stylesheet" href="static/css/row_buttons.css">
+    <link rel="stylesheet" href="static/css/cart.css">
+
+    <!-- JS (defer гарантирует правильный порядок) -->
+    <script src="static/js/products.js" defer></script>
+    <script src="static/js/top_buttons.js" defer></script>
+    <script src="static/js/row_buttons.js" defer></script>
+    <script src="static/js/cart.js?v=2" defer></script>
+
 
 </head>
 
 <body>
 <div id="app">
 
-  <!-- Картинка сверху -->
-  <div id="top-image">
-      <img src="static/icons/pepe2.jpg" alt="Pepe">
-  </div>
+    <!-- Верхняя картинка -->
+    <div id="top-image">
+        <img src="static/icons/pepe2.jpg" alt="Pepe">
+    </div>
 
-  <!-- Верхние 55 кнопок продуктов -->
-  <div id="top-buttons-container"></div>
+    <!-- Верхние кнопки продуктов -->
+    <div id="top-buttons-container"></div>
 
-  <!-- ======= Контейнер для трёх фиксированных кнопок: корзина, евро и заметки ======= -->
-  <div id="row-buttons-container"></div>
+    <!-- Три фиксированные кнопки -->
+    <div id="row-buttons-container"></div>
 
-</div> <!-- конец #app -->
+    <!-- Нижние кнопки (корзина) -->
+    <div id="cart-container"></div>
 
-
-<!-- JS -->
-<script src="static/js/products.js"></script>
-<script src="static/js/cart.js"></script>
-<script src="static/js/top_buttons.js"></script>
-<script src="static/js/row_buttons.js"></script>
-
-
+</div>
 </body>
 </html>
