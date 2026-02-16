@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const priceTag = document.createElement("div");
             priceTag.textContent = `€${product.price.toFixed(2)}`;
             priceTag.style.position = "absolute";
-            priceTag.style.top = "-20px";
+            priceTag.style.bottom = "50px";  // выводим сверху кнопки вниз
             priceTag.style.left = "50%";
             priceTag.style.transform = "translateX(-50%)";
             priceTag.style.color = "white";
@@ -46,12 +46,13 @@ document.addEventListener("DOMContentLoaded", () => {
             priceTag.style.fontWeight = "bold";
             priceTag.style.pointerEvents = "none";
             priceTag.style.transition = "all 0.5s ease-out";
+            priceTag.style.zIndex = "999";
 
             btn.appendChild(priceTag);
 
             setTimeout(() => {
                 priceTag.style.opacity = "0";
-                priceTag.style.transform = "translateX(-50%) translateY(-10px)";
+                priceTag.style.transform = "translateX(-50%) translateY(10px)"; // анимация вниз
             }, 800);
 
             setTimeout(() => {
@@ -59,9 +60,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 1200);
 
             // ===== ВЫБРАСЫВАЕМ СОБЫТИЕ ДЛЯ cart.js =====
-            // ===== ДОБАВЛЯЕМ В КОРЗИНУ =====
-            addToCart(product);
-
+            const event = new CustomEvent("topButtonClicked", { detail: product });
+            document.dispatchEvent(event);
         });
 
         topButtonsContainer.appendChild(btn);

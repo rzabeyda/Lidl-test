@@ -1,15 +1,18 @@
+/* Контейнер нижних кнопок (корзина) */
 #cart-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    padding: 5px;
-    margin-top: 10px;
-    gap: 5px;
+    justify-content: center; /* центрируем ряды */
+    padding: 0;
+    margin-top: 5px;        /* чуть выше, ближе к row-buttons */
+    gap: 5px;                /* одинаковый gap с верхними кнопками */
 }
 
+/* Нижние кнопки (корзина) — теперь полностью как верхние */
 .bottom-button {
-    width: 18%;
-    height: 60px;
+    width: 70px;             /* точно как верхние */
+    height: 70px;            /* точно как верхние */
+    margin: 5px;             /* одинаковый отступ */
     background: #222;
     border: none;
     border-radius: 12px;
@@ -17,18 +20,20 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: relative;
+    position: relative;      /* для счётчика */
     color: white;
     cursor: pointer;
     transition: transform 0.1s, box-shadow 0.1s;
 }
 
+/* Иконка внутри нижней кнопки */
 .bottom-button .icon img {
-    width: 25px;
-    height: 25px;
+    width: 30px;             /* такой же размер как у верхних */
+    height: 30px;
     transition: transform 0.2s;
 }
 
+/* Название продукта */
 .bottom-button .name {
     font-size: 10px;
     text-align: center;
@@ -43,7 +48,7 @@
     position: absolute;
     top: -3px;
     right: -3px;
-    background: green;
+    background: red;
     width: 14px;
     height: 14px;
     font-size: 10px;
@@ -64,6 +69,7 @@
     animation: pulse 1.5s infinite alternate;
 }
 
+/* Анимация подпрыгивания */
 @keyframes vibro {
     0% { transform: translateY(0) scale(1); }
     25% { transform: translateY(-5px) scale(1.15); }
@@ -72,8 +78,22 @@
     100% { transform: translateY(0) scale(1); }
 }
 
+/* Анимация пульсации */
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
+}
+
+/* Мобильная адаптация */
+@media (max-width: 480px) {
+    .bottom-button {
+        width: 60px;
+        height: 60px;
+        margin: 2px;
+    }
+    .bottom-button .icon img {
+        width: 28px;
+        height: 28px;
+    }
 }
