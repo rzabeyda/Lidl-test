@@ -8,7 +8,7 @@ import os
 TOKEN = "8353827125:AAG2HR63c6_bvJx28kTnJE4ZIlxZy44TYfw"
 
 # 🔹 WebApp URL — именно наша страничка
-WEBAPP_URL = "https://rzabeyda.github.io/Lidl-test/"
+WEBAPP_URL = "https://rzabeyda.github.io/Lidl-test/?v=2"
 
 # 🔹 Путь к приветственной картинке
 WELCOME_IMG_PATH = "static/icons/duck.jpg"
@@ -17,7 +17,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Обработка команды /start"""
 
     user_name = update.effective_user.first_name or "друг"
-    text = f"Привет, {user_name} 🤗\nНажми на кнопку, чтобы открыть шопинг:"
+    text = f"Привет, {user_name} 🤗"
 
     keyboard = [
         [
@@ -50,7 +50,7 @@ def main():
     # Добавляем хэндлер /start
     app.add_handler(CommandHandler("start", start))
 
-    print("🚀 Бот @golidlbot запущен. Команда /start активна.")
+    print("🚀 Бот @golidlbot запущен!")
     app.run_polling()
 
 if __name__ == "__main__":
