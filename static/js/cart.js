@@ -39,7 +39,6 @@ function updateBottomButton(product) {
         // клик — уменьшение на 1
         btn.addEventListener("click", () => {
             let value = parseInt(counter.textContent || 1);
-
             value -= 1;
 
             if (value <= 0) {
@@ -49,13 +48,17 @@ function updateBottomButton(product) {
                 counter.style.display = value >= 2 ? "flex" : "none";
             }
 
-            // анимация
+            // Анимация
             btn.classList.add("active");
             icon.style.transform = "scale(1.3)";
             setTimeout(() => {
                 btn.classList.remove("active");
                 icon.style.transform = "scale(1)";
             }, 250);
+
+            // ⚡ Генерируем событие для уменьшения суммы синей кнопки
+            const event = new CustomEvent("bottomButtonClicked", { detail: product });
+            document.dispatchEvent(event);
         });
 
         container.appendChild(btn);

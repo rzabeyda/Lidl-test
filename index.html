@@ -6,23 +6,28 @@
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Lidl Helper</title>
 
+    <!-- Генерируем уникальный query string для отключения кэша -->
+    <script>
+        const CACHE_BUST = Date.now();
+    </script>
+
     <!-- CSS -->
-    <link rel="stylesheet" href="static/css/base.css">
-    <link rel="stylesheet" href="static/css/top_image.css">
-    <link rel="stylesheet" href="static/css/top_buttons.css">
-    <link rel="stylesheet" href="static/css/row_buttons.css">
-    <link rel="stylesheet" href="static/css/cart.css">
-    <link rel="stylesheet" href="static/css/blue_button.css">
-    <link rel="stylesheet" href="static/css/yellow_button.css"> <!-- новый файл -->
+    <link rel="stylesheet" href="static/css/base.css?v=<script>document.write(CACHE_BUST)</script>">
+    <link rel="stylesheet" href="static/css/top_image.css?v=<script>document.write(CACHE_BUST)</script>">
+    <link rel="stylesheet" href="static/css/top_buttons.css?v=<script>document.write(CACHE_BUST)</script>">
+    <link rel="stylesheet" href="static/css/row_buttons.css?v=<script>document.write(CACHE_BUST)</script>">
+    <link rel="stylesheet" href="static/css/cart.css?v=<script>document.write(CACHE_BUST)</script>">
+    <link rel="stylesheet" href="static/css/blue_button.css?v=<script>document.write(CACHE_BUST)</script>">
+    <link rel="stylesheet" href="static/css/yellow_button.css?v=<script>document.write(CACHE_BUST)</script>">
 
     <!-- JS (defer гарантирует правильный порядок) -->
-    <script src="static/js/products.js" defer></script>
-    <script src="static/js/top_buttons.js" defer></script>
-    <script src="static/js/row_buttons.js" defer></script>
-    <script src="static/js/red_button.js" defer></script>
-    <script src="static/js/cart.js?v=2" defer></script>
-    <script src="static/js/blue_button.js" defer></script>
-    <script src="static/js/yellow_button.js" defer></script> <!-- новый файл -->
+    <script src="static/js/products.js?v=<script>document.write(CACHE_BUST)</script>" defer></script>
+    <script src="static/js/top_buttons.js?v=<script>document.write(CACHE_BUST)</script>" defer></script>
+    <script src="static/js/row_buttons.js?v=<script>document.write(CACHE_BUST)</script>" defer></script>
+    <script src="static/js/red_button.js?v=<script>document.write(CACHE_BUST)</script>" defer></script>
+    <script src="static/js/cart.js?v=<script>document.write(CACHE_BUST)</script>" defer></script>
+    <script src="static/js/blue_button.js?v=<script>document.write(CACHE_BUST)</script>" defer></script>
+    <script src="static/js/yellow_button.js?v=<script>document.write(CACHE_BUST)</script>" defer></script>
 
 </head>
 
@@ -31,7 +36,7 @@
 
     <!-- Верхняя картинка -->
     <div id="top-image">
-        <img src="static/icons/pepe2.jpg" alt="Pepe">
+        <img src="static/icons/pepe2.jpg?v=<script>document.write(CACHE_BUST)</script>" alt="Pepe">
     </div>
 
     <!-- Верхние кнопки продуктов -->

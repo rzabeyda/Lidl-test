@@ -1,4 +1,4 @@
-// blue_button.js
+// ===== BLUE BUTTON =====
 document.addEventListener("DOMContentLoaded", () => {
     const blueButton = document.getElementById("btn-euro");
     if (!blueButton) return;
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             sumDisplay.textContent = `€${total.toFixed(2)}`;
             sumDisplay.style.color = "white";
-            sumDisplay.style.fontSize = "24px";
+            sumDisplay.style.fontSize = "26px"; // чуть больше шрифт
             sumDisplay.style.fontWeight = "bold";
         } else {
             // Если сумма 0 — вернуть иконку
@@ -39,25 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ===== Уменьшение суммы при клике на нижние кнопки =====
-    document.addEventListener("DOMContentLoaded", () => {
-        const cartContainer = document.getElementById("cart-container");
-
-        cartContainer.addEventListener("click", (e) => {
-            const btn = e.target.closest(".bottom-button");
-            if (!btn) return;
-
-            const productName = btn.dataset.id;
-            const product = products.find(p => p.name === productName);
-            if (!product) return;
-
-            const counter = btn.querySelector(".counter");
-            let value = parseInt(counter.textContent || 1);
-            value -= 1;
-
-            total -= product.price;
-            if (total < 0) total = 0;
-            updateBlueButton();
-        });
+    document.addEventListener("bottomButtonClicked", (e) => {
+        const product = e.detail;
+        total -= product.price;
+        if (total < 0) total = 0;
+        updateBlueButton();
     });
 
     // ===== Включаем свечение + вибрацию при клике на синюю кнопку =====
@@ -65,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const allButtons = document.querySelectorAll(".top-button, .bottom-button, .row-button");
         allButtons.forEach(btn => {
             btn.classList.add("mass-glow");
-            setTimeout(() => btn.classList.remove("mass-glow"), 1500);
+            setTimeout(() => btn.classList.remove("mass-glow"), 1000); // уменьшили до 1с
         });
     });
 
