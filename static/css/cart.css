@@ -1,34 +1,41 @@
+/* Контейнер нижних кнопок */
 #cart-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: center; /* центрирование */
     padding: 5px;
+    max-height: 210px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     margin-top: 10px;
-    gap: 5px;
 }
 
+/* Нижние кнопки */
 .bottom-button {
-    width: 18%;
+    width: 60px;               /* как верхние */
     height: 60px;
+    margin: 5px;
     background: #222;
     border: none;
     border-radius: 12px;
+    color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
-    color: white;
     cursor: pointer;
     transition: transform 0.1s, box-shadow 0.1s;
 }
 
+/* Иконка внутри нижней кнопки */
 .bottom-button .icon img {
     width: 25px;
     height: 25px;
     transition: transform 0.2s;
 }
 
+/* Название продукта */
 .bottom-button .name {
     font-size: 10px;
     text-align: center;
@@ -38,7 +45,7 @@
     text-overflow: ellipsis;
 }
 
-/* Кружок с количеством */
+/* Кружок для счётчика */
 .bottom-button .counter {
     position: absolute;
     top: -3px;
@@ -52,16 +59,12 @@
     align-items: center;
     justify-content: center;
     color: white;
+    display: none; /* по умолчанию скрыт */
 }
 
-/* подпрыгивание при клике */
-.bottom-button:active, .bottom-button.active {
+/* Анимация нажатия / подпрыгивания */
+.bottom-button.active {
     animation: vibro 0.25s;
-}
-
-/* пульсация при hover */
-.bottom-button:hover {
-    animation: pulse 1.5s infinite alternate;
 }
 
 @keyframes vibro {
@@ -70,10 +73,4 @@
     50% { transform: translateY(0) scale(1.1); }
     75% { transform: translateY(-3px) scale(1.1); }
     100% { transform: translateY(0) scale(1); }
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
 }
